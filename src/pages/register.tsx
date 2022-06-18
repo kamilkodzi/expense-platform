@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { resourceLimits } from "worker_threads";
+import { navigate } from "gatsby";
 
 const RegisterInputs = styled.div`
   display: block;
@@ -23,16 +23,18 @@ const Register = () => {
 
   const registerUser = async () => {
     const dataToBeSent = JSON.stringify(registerData);
-    console.log("dane do wysylki" + dataToBeSent);
-    let resuls = await fetch("http://localhost:3000/auth/register", {
+
+    let resuls = await fetch("/api/auth/register", {
       method: "POST",
       mode: "cors",
-      body: JSON.stringify(registerData),
+      body: dataToBeSent,
       headers: {
+        Accept: "application/json",
         "Content-Type": "application/json",
       },
     });
-    console.log(resuls);
+    resuls = await resuls.json();
+    if (resuls) navigate("/");
   };
 
   const handleSubmit = async (e: React.SyntheticEvent) => {

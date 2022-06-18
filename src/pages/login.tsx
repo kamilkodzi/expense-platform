@@ -1,4 +1,4 @@
-import { Link } from "gatsby";
+import { Link, navigate } from "gatsby";
 import React, { useState } from "react";
 import styled from "styled-components";
 
@@ -17,14 +17,31 @@ const LoginInputs = styled.div`
 const Index = () => {
   const [loginData, setLoginData] = useState({ username: "", password: "" });
 
+  const loginUser = async () => {
+    const dataToBeSent = JSON.stringify(loginData);
+    let results = await fetch("/api/auth/login", {
+      method: "POST",
+      mode: "cors",
+      credentials: "include",
+      body: dataToBeSent,
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    });
+    console.log(results);
+  };
+
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
+    loginUser();
+    console.log(JSON.stringify(loginData));
   };
 
   const changeHandler = (e: React.SyntheticEvent) => {
     const target = e.target as HTMLInputElement;
     const { value, name } = target;
-    setLoginData({ ...loginData, [name]: [value] });
+    setLoginData({ ...loginData, [name]: value });
   };
 
   return (
