@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { resourceLimits } from "worker_threads";
 
 const RegisterInputs = styled.div`
   display: block;
@@ -13,22 +14,37 @@ const RegisterInputs = styled.div`
   }
 `;
 
-function register() {
+const Register = () => {
   const [registerData, setRegisterData] = useState({
     email: "",
     username: "",
     password: "",
   });
 
-  const handleSubmit = (e: React.SyntheticEvent) => {
+  const registerUser = async () => {
+    const dataToBeSent = JSON.stringify(registerData);
+    console.log("dane do wysylki" + dataToBeSent);
+    let resuls = await fetch("http://localhost:3000/auth/register", {
+      method: "POST",
+      mode: "cors",
+      body: JSON.stringify(registerData),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    console.log(resuls);
+  };
+
+  const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
+    registerUser();
     console.log("Refister form subbmited");
   };
 
   const changeHandler = (e: React.SyntheticEvent) => {
     const target = e.target as HTMLInputElement;
     const { value, name } = target;
-    setRegisterData({ ...registerData, [name]: [value] });
+    setRegisterData({ ...registerData, [name]: value });
   };
 
   return (
@@ -67,6 +83,6 @@ function register() {
       </form>
     </section>
   );
-}
+};
 
-export default register;
+export default Register;
