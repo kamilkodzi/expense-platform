@@ -35,7 +35,7 @@ const Index = () => {
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
     loginUser();
-    console.log(JSON.stringify(loginData));
+    navigate("/");
   };
 
   const changeHandler = (e: React.SyntheticEvent) => {

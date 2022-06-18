@@ -6,6 +6,8 @@ const index = () => {
     <div>
       <h1>Wellcome in home page @@@</h1>
       <Link to="/login">Go to login page</Link>
+      <br></br>
+      <Link to="/protected">Go to PROTECTED SITE</Link>
     </div>
   );
 };
