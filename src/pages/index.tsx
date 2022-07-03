@@ -1,14 +1,13 @@
 import React from "react";
-import { Link } from "gatsby";
+import Layout from "../components/Layout";
 
 const index = () => {
   return (
-    <div>
-      <h1>Wellcome in home page @@@</h1>
-      <Link to="/login">Go to login page</Link>
-      <br></br>
-      <Link to="/protected">Go to PROTECTED SITE</Link>
-    </div>
+    <Layout>
+      <h2>Famil Expense App!</h2>
+      <p> Create your profile visiting my profile section</p>
+      <p></p>
+    </Layout>
   );
 };
 

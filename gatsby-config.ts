@@ -3,7 +3,7 @@ const { createProxyMiddleware } = require("http-proxy-middleware");
 
 const config: GatsbyConfig = {
   siteMetadata: {
-    title: `gaming-platform`,
+    title: `family-expense`,
     siteUrl: `https://www.yourdomain.tld`,
   },
   plugins: ["gatsby-plugin-styled-components"],
