@@ -25,7 +25,7 @@ const MyProfile = () => {
     getCurrentUser().then((user) => {
       fetch(
         //@ts-ignore
-        `/api/user/${user?.id}`,
+        `https://socialist-keener-62500.herokuapp.com/user/${user?.id}`,
         {
           method: "GET",
           mode: "cors",
@@ -71,22 +71,24 @@ const MyProfile = () => {
     }
   };
   const leaveHandler = async () => {
-    // PATCH  http://localhost:3000/families/62c02f0fd042319f16a1b236/quit
     const currentUser = await getCurrentUser();
 
     if (data?.family?._id) {
       const id = data?.family?._id;
-      const results = await fetch(`/api/families/${id}/quit`, {
-        method: "PATCH",
-        mode: "cors",
-        body: JSON.stringify({ id: currentUser.id }),
-        credentials: "include",
-        headers: {
-          Accept: "application/json",
-          "Access-Control-Allow-Origin": "*",
-          "Content-Type": "application/json",
-        },
-      });
+      const results = await fetch(
+        `https://socialist-keener-62500.herokuapp.com/families/${id}/quit`,
+        {
+          method: "PATCH",
+          mode: "cors",
+          body: JSON.stringify({ id: currentUser.id }),
+          credentials: "include",
+          headers: {
+            Accept: "application/json",
+            "Access-Control-Allow-Origin": "*",
+            "Content-Type": "application/json",
+          },
+        }
+      );
       const resultdata = await results.json();
       if (results.ok) {
         setData((prevState) => ({ ...prevState, family: null }));
@@ -99,10 +101,12 @@ const MyProfile = () => {
   };
   return (
     <Layout>
-      <div>
+      <div style={{ padding: " 90px 10px 10px 10px" }}>
         <div className="welcome">
-          <h2 style={{ marginBottom: "5px" }}>Hello, {data?.username}</h2>
-          <h3 style={{ marginTop: "5px" }}>What you gona do today?</h3>
+          <h2 style={{ marginBottom: "5px", marginTop: "0px" }}>
+            Hello, {data?.username}
+          </h2>
+          <h3 style={{ marginTop: "5px" }}>What you gonna do???</h3>
           <button onClick={logOutHandler}>Logout</button>
         </div>
         <p>

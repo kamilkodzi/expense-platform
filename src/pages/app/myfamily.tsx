@@ -4,7 +4,9 @@ import Layout from "../../components/Layout";
 const Myfamily = () => {
   return (
     <Layout>
-      <div>myfamily</div>
+      <div style={{ padding: " 90px 10px 10px 10px" }}>
+        Tutaj będą wydatki rodziny
+      </div>
     </Layout>
   );
 };

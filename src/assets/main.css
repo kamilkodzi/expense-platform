@@ -23,7 +23,44 @@ body {
   background: black;
   color: white;
 }
+.page-nav {
+  text-align: center;
+  height: 4rem;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  background: black;
+  color: white;
+}
+.page-nav a {
+  color: white;
+}
 
 .welcome {
   display: inline;
+}
+
+.nav-wrapper li {
+  display: inline-block;
+  margin: auto;
+  padding: 10px;
+}
+
+.gatsby-name {
+  color: rgb(169, 91, 243);
+}
+.footer-text {
+  letter-spacing: 0.17em;
+}
+
+.nav-wrapper li a {
+  text-decoration: none;
+  letter-spacing: 0.05em;
+  color: rgb(169, 91, 243);
+}
+.nav-wrapper li a:after {
+  content: "|";
+}
+.nav-wrapper li a:before {
+  content: "|";
 }

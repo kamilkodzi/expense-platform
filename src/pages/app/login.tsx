@@ -24,17 +24,20 @@ const Register = () => {
   const registerUser = async () => {
     const dataToBeSent = JSON.stringify(registerData);
 
-    let resuls = await fetch("/api/user/registerorlogin", {
-      method: "POST",
-      mode: "cors",
-      body: dataToBeSent,
-      credentials: "include",
-      headers: {
-        Accept: "application/json",
-        "Access-Control-Allow-Origin": "*",
-        "Content-Type": "application/json",
-      },
-    });
+    let resuls = await fetch(
+      "https://socialist-keener-62500.herokuapp.com/user/registerorlogin",
+      {
+        method: "POST",
+        mode: "cors",
+        body: dataToBeSent,
+        credentials: "include",
+        headers: {
+          Accept: "application/json",
+          "Access-Control-Allow-Origin": "*",
+          "Content-Type": "application/json",
+        },
+      }
+    );
     const resulss = await resuls.json();
     if (resulss) {
       setUser({ username: registerData?.username, id: resulss?.message });
@@ -55,7 +58,7 @@ const Register = () => {
 
   return (
     <Layout>
-      <section>
+      <section style={{ padding: " 90px 10px 10px 10px" }}>
         <div>
           <h2>Login yourself</h2>
         </div>

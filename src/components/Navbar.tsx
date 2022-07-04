@@ -35,37 +35,39 @@ const Navbar = () => {
   }, [user]);
 
   return (
-    <Nav>
-      <div className="menu-links">
-        <ul className="list">
-          <li className="list-item">
-            <Link
-              to="/app/myprofile"
-              className="nav-link"
-              activeClassName="active-link"
-            >
-              My profile
-            </Link>
-          </li>
-          <li className="list-item">
-            <Link
-              to="/app/myfamily"
-              className="nav-link"
-              activeClassName="active-link"
-            >
-              My Family
-            </Link>
-          </li>
-          <li className="list-item">
-            <Link
-              to="/app/findfamily"
-              className="nav-link"
-              activeClassName="active-link"
-            >
-              Find family
-            </Link>
-          </li>
-        </ul>
+    <Nav className="page-nav">
+      <div>
+        <div className="menu-links">
+          <ul className="list nav-wrapper">
+            <li className="list-item">
+              <Link
+                to="/app/myprofile"
+                className="nav-link"
+                activeClassName="active-link"
+              >
+                My profile
+              </Link>
+            </li>
+            <li className="list-item">
+              <Link
+                to="/app/myfamily"
+                className="nav-link"
+                activeClassName="active-link"
+              >
+                My family
+              </Link>
+            </li>
+            <li className="list-item">
+              <Link
+                to="/app/findfamily"
+                className="nav-link"
+                activeClassName="active-link"
+              >
+                Find family
+              </Link>
+            </li>
+          </ul>
+        </div>
       </div>
     </Nav>
   );

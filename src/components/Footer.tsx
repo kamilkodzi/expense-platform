@@ -3,7 +3,10 @@ import React from "react";
 const Footer = () => {
   return (
     <div className="page-footer">
-      <p>FamilyExpenses build with Gatsby</p>
+      <p className="footer-text">
+        <span className="gatsby-name">FamilyExpenses </span> build with
+        <span className="gatsby-name"> Gatsby</span>
+      </p>
     </div>
   );
 };

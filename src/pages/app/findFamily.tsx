@@ -10,7 +10,7 @@ const FindFamily = () => {
   const [newAdded, setNewAdded] = useState(0);
   useEffect(() => {
     const fetchData = async () => {
-      fetch("/api/families", {
+      fetch("https://socialist-keener-62500.herokuapp.com/families", {
         method: "GET",
         mode: "cors",
         credentials: "include",
@@ -34,20 +34,23 @@ const FindFamily = () => {
   const addFamilyHandler = async (e) => {
     e.preventDefault();
     const currentUser = await getCurrentUser();
-    const results = await fetch("/api/families", {
-      method: "POST",
-      mode: "cors",
-      credentials: "include",
-      body: JSON.stringify({
-        familyName: newFamilyName,
-        headOfFamily: currentUser.id,
-      }),
-      headers: {
-        Accept: "application/json",
-        "Access-Control-Allow-Origin": "*",
-        "Content-Type": "application/json",
-      },
-    });
+    const results = await fetch(
+      "https://socialist-keener-62500.herokuapp.com/families",
+      {
+        method: "POST",
+        mode: "cors",
+        credentials: "include",
+        body: JSON.stringify({
+          familyName: newFamilyName,
+          headOfFamily: currentUser.id,
+        }),
+        headers: {
+          Accept: "application/json",
+          "Access-Control-Allow-Origin": "*",
+          "Content-Type": "application/json",
+        },
+      }
+    );
     const resultData = await results.json();
     if (results.ok) {
       setNewAdded((prevState) => prevState + 1);
@@ -59,7 +62,7 @@ const FindFamily = () => {
 
   return (
     <Layout>
-      <form>
+      <form style={{ padding: " 90px 10px 10px 10px" }}>
         <label>
           Family name:&nbsp;
           <input
@@ -71,7 +74,7 @@ const FindFamily = () => {
           ></input>
         </label>
         <button type="submit" onClick={addFamilyHandler}>
-          Create new
+          Add
         </button>
       </form>
       <h2>Families:</h2>
