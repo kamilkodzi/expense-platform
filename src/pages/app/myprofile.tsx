@@ -2,7 +2,7 @@ import { Link, navigate } from "gatsby";
 import React from "react";
 import { useState, useEffect } from "react";
 import Layout from "../../components/Layout";
-import { logout } from "../../services/auth";
+import { getCurrentUser, logout } from "../../services/auth";
 
 type IUser = {
   _id?: string;
@@ -22,58 +22,45 @@ const MyProfile = () => {
   const [data, setData] = useState<IUser | undefined>(undefined);
 
   useEffect(() => {
-    fetch("https://socialist-keener-62500.herokuapp.com/user/myprofile", {
-      method: "POST",
-      mode: "cors",
-      credentials: "include",
-      headers: {
-        Accept: "application/json",
-        "Access-Control-Allow-Origin": "*",
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => {
-        if (response.ok) {
-          return response.json();
+    getCurrentUser().then((user) => {
+      fetch(
+        //@ts-ignore
+        `/api/user/${user?.id}`,
+        {
+          method: "GET",
+          mode: "cors",
+          credentials: "include",
+          headers: {
+            Accept: "application/json",
+            "Access-Control-Allow-Origin": "*",
+            "Content-Type": "application/json",
+          },
         }
-        throw response;
-      })
-      .then((data) => {
-        setData(data);
-      })
-      .catch((error) => {
-        console.error("Error fetching data: ", error);
-        setError(error);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+      )
+        .then((response) => {
+          if (response.ok) {
+            return response.json();
+          }
+          throw response;
+        })
+        .then((data) => {
+          setData(data);
+        })
+        .catch((error) => {
+          console.error("Error fetching data: ", error);
+          setError(error);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    });
   }, []);
 
   const logOutHandler = async () => {
     await logout();
-    const result = await fetch(
-      "https://socialist-keener-62500.herokuapp.com/user/logout",
-      {
-        method: "POST",
-        mode: "cors",
-        credentials: "include",
-        headers: {
-          Accept: "application/json",
-          "Access-Control-Allow-Origin": "*",
-          "Content-Type": "application/json",
-        },
-      }
-    );
-    if (result.ok) {
-      navigate("/");
-    }
+    navigate("/");
   };
-  // const result = async () => {
-  //   let data = await fetch("/api/api/post");
-  //   data = await data.json();
-  //   return data;
-  // };
+
   if (loading) return <Layout>Loading...</Layout>;
   if (error) return "Error";
   const joinHandler = () => {
@@ -85,21 +72,21 @@ const MyProfile = () => {
   };
   const leaveHandler = async () => {
     // PATCH  http://localhost:3000/families/62c02f0fd042319f16a1b236/quit
+    const currentUser = await getCurrentUser();
+
     if (data?.family?._id) {
       const id = data?.family?._id;
-      const results = await fetch(
-        `https://socialist-keener-62500.herokuapp.com/families/${id}/quit`,
-        {
-          method: "PATCH",
-          mode: "cors",
-          credentials: "include",
-          headers: {
-            Accept: "application/json",
-            "Access-Control-Allow-Origin": "*",
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const results = await fetch(`/api/families/${id}/quit`, {
+        method: "PATCH",
+        mode: "cors",
+        body: JSON.stringify({ id: currentUser.id }),
+        credentials: "include",
+        headers: {
+          Accept: "application/json",
+          "Access-Control-Allow-Origin": "*",
+          "Content-Type": "application/json",
+        },
+      });
       const resultdata = await results.json();
       if (results.ok) {
         setData((prevState) => ({ ...prevState, family: null }));
@@ -118,9 +105,6 @@ const MyProfile = () => {
           <h3 style={{ marginTop: "5px" }}>What you gona do today?</h3>
           <button onClick={logOutHandler}>Logout</button>
         </div>
-
-        <p>First name: {data?.firstName}</p>
-        <p>Last name: {data?.lastName}</p>
         <p>
           Family: <Link to="/app/myfamily">{data?.family?.familyName}</Link>
         </p>

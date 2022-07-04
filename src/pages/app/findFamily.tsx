@@ -2,14 +2,15 @@ import { navigate } from "gatsby";
 import React, { useEffect, useState } from "react";
 import Layout from "../../components/Layout";
 import SingleFamily from "../../components/SingleFamily";
+import { getCurrentUser } from "../../services/auth";
 
 const FindFamily = () => {
-  const [newFamilyName, setNewFamilyName] = useState({ familyName: "" });
+  const [newFamilyName, setNewFamilyName] = useState();
   const [familyData, setFamilyData] = useState([]);
   const [newAdded, setNewAdded] = useState(0);
   useEffect(() => {
     const fetchData = async () => {
-      fetch("https://socialist-keener-62500.herokuapp.com/families", {
+      fetch("/api/families", {
         method: "GET",
         mode: "cors",
         credentials: "include",
@@ -28,25 +29,25 @@ const FindFamily = () => {
   }, [newAdded]);
 
   const changeHandler = (e) => {
-    setNewFamilyName({ familyName: e.target.value });
+    setNewFamilyName(e.target.value);
   };
   const addFamilyHandler = async (e) => {
     e.preventDefault();
-
-    const results = await fetch(
-      "https://socialist-keener-62500.herokuapp.com/families",
-      {
-        method: "POST",
-        mode: "cors",
-        credentials: "include",
-        body: JSON.stringify(newFamilyName),
-        headers: {
-          Accept: "application/json",
-          "Access-Control-Allow-Origin": "*",
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    const currentUser = await getCurrentUser();
+    const results = await fetch("/api/families", {
+      method: "POST",
+      mode: "cors",
+      credentials: "include",
+      body: JSON.stringify({
+        familyName: newFamilyName,
+        headOfFamily: currentUser.id,
+      }),
+      headers: {
+        Accept: "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Content-Type": "application/json",
+      },
+    });
     const resultData = await results.json();
     if (results.ok) {
       setNewAdded((prevState) => prevState + 1);
@@ -62,7 +63,7 @@ const FindFamily = () => {
         <label>
           Family name:&nbsp;
           <input
-            value={newFamilyName.familyName}
+            value={newFamilyName}
             onChange={changeHandler}
             type="text"
             name="familyName"

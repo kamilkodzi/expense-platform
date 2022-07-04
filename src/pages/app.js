@@ -13,7 +13,6 @@ const App = () => (
       <PrivateRoute path="app/myfamily" component={MyFamily} />
       <PrivateRoute path="app/login" component={Login} />
       <PrivateRoute path="app/findfamily" component={FindFamily} />
-      {/* <Login path="user/login" /> */}
     </Router>
   </>
 );
