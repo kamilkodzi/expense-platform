@@ -33,16 +33,20 @@ const Index = () => {
 
   const loginUser = async () => {
     const dataToBeSent = JSON.stringify(loginData);
-    let results = await fetch("/api/user/login", {
-      method: "POST",
-      mode: "cors",
-      credentials: "include",
-      body: dataToBeSent,
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-    });
+    let results = await fetch(
+      "https://socialist-keener-62500.herokuapp.com/user/login",
+      {
+        method: "POST",
+        mode: "cors",
+        credentials: "include",
+        body: dataToBeSent,
+        headers: {
+          Accept: "application/json",
+          "Access-Control-Allow-Origin": "*",
+          "Content-Type": "application/json",
+        },
+      }
+    );
     if (results.ok) {
       return true;
     } else {

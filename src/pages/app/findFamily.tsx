@@ -9,19 +9,22 @@ const FindFamily = () => {
   const [newAdded, setNewAdded] = useState(0);
   useEffect(() => {
     const fetchData = async () => {
-      fetch("/api/families", {
+      fetch("https://socialist-keener-62500.herokuapp.com/families", {
         method: "GET",
         mode: "cors",
         credentials: "include",
         headers: {
           Accept: "application/json",
+          "Access-Control-Allow-Origin": "*",
           "Content-Type": "application/json",
         },
       })
         .then((response) => response.json())
         .then((data) => setFamilyData(data));
     };
-    fetchData();
+    fetchData().catch((e) => {
+      console.log(e);
+    });
   }, [newAdded]);
 
   const changeHandler = (e) => {
@@ -30,16 +33,20 @@ const FindFamily = () => {
   const addFamilyHandler = async (e) => {
     e.preventDefault();
 
-    const results = await fetch("/api/families", {
-      method: "POST",
-      mode: "cors",
-      credentials: "include",
-      body: JSON.stringify(newFamilyName),
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-    });
+    const results = await fetch(
+      "https://socialist-keener-62500.herokuapp.com/families",
+      {
+        method: "POST",
+        mode: "cors",
+        credentials: "include",
+        body: JSON.stringify(newFamilyName),
+        headers: {
+          Accept: "application/json",
+          "Access-Control-Allow-Origin": "*",
+          "Content-Type": "application/json",
+        },
+      }
+    );
     const resultData = await results.json();
     if (results.ok) {
       setNewAdded((prevState) => prevState + 1);

@@ -13,15 +13,19 @@ export const setUser = (user) =>
 
 export const isLoggedIn = async () => {
   if (!isBrowser) return false;
-  const isLoggedIn = await fetch("/api/user/loggedincheck", {
-    method: "GET",
-    mode: "cors",
-    credentials: "include",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-  });
+  const isLoggedIn = await fetch(
+    "https://socialist-keener-62500.herokuapp.com/user/loggedincheck",
+    {
+      method: "GET",
+      mode: "cors",
+      credentials: "include",
+      headers: {
+        Accept: "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Content-Type": "application/json",
+      },
+    }
+  );
 
   if (isLoggedIn.ok) {
     const data = await isLoggedIn.json();

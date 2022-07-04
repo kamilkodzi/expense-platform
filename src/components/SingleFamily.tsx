@@ -4,15 +4,19 @@ import React from "react";
 const SingleFamily = (props) => {
   const clickHandler = async () => {
     const id = props.family._id;
-    const results = await fetch(`/api/families/${id}/join`, {
-      method: "PATCH",
-      mode: "cors",
-      credentials: "include",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-    });
+    const results = await fetch(
+      `https://socialist-keener-62500.herokuapp.com/families/${id}/join`,
+      {
+        method: "PATCH",
+        mode: "cors",
+        credentials: "include",
+        headers: {
+          Accept: "application/json",
+          "Access-Control-Allow-Origin": "*",
+          "Content-Type": "application/json",
+        },
+      }
+    );
     const resultdata = await results.json();
     if (results.ok) {
       navigate("/app/myprofile");

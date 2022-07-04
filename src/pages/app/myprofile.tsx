@@ -22,7 +22,16 @@ const MyProfile = () => {
   const [data, setData] = useState<IUser | undefined>(undefined);
 
   useEffect(() => {
-    fetch("/api/user/myprofile")
+    fetch("https://socialist-keener-62500.herokuapp.com/user/myprofile", {
+      method: "POST",
+      mode: "cors",
+      credentials: "include",
+      headers: {
+        Accept: "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Content-Type": "application/json",
+      },
+    })
       .then((response) => {
         if (response.ok) {
           return response.json();
@@ -43,15 +52,19 @@ const MyProfile = () => {
 
   const logOutHandler = async () => {
     await logout();
-    const result = await fetch("/api/user/logout", {
-      method: "POST",
-      mode: "cors",
-      credentials: "include",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-    });
+    const result = await fetch(
+      "https://socialist-keener-62500.herokuapp.com/user/logout",
+      {
+        method: "POST",
+        mode: "cors",
+        credentials: "include",
+        headers: {
+          Accept: "application/json",
+          "Access-Control-Allow-Origin": "*",
+          "Content-Type": "application/json",
+        },
+      }
+    );
     if (result.ok) {
       navigate("/");
     }
@@ -74,15 +87,19 @@ const MyProfile = () => {
     // PATCH  http://localhost:3000/families/62c02f0fd042319f16a1b236/quit
     if (data?.family?._id) {
       const id = data?.family?._id;
-      const results = await fetch(`/api/families/${id}/quit`, {
-        method: "PATCH",
-        mode: "cors",
-        credentials: "include",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      });
+      const results = await fetch(
+        `https://socialist-keener-62500.herokuapp.com/families/${id}/quit`,
+        {
+          method: "PATCH",
+          mode: "cors",
+          credentials: "include",
+          headers: {
+            Accept: "application/json",
+            "Access-Control-Allow-Origin": "*",
+            "Content-Type": "application/json",
+          },
+        }
+      );
       const resultdata = await results.json();
       if (results.ok) {
         setData((prevState) => ({ ...prevState, family: null }));
@@ -97,7 +114,8 @@ const MyProfile = () => {
     <Layout>
       <div>
         <div className="welcome">
-          <h2>Hi, wellcome {data?.username}</h2>
+          <h2 style={{ marginBottom: "5px" }}>Hello, {data?.username}</h2>
+          <h3 style={{ marginTop: "5px" }}>What you gona do today?</h3>
           <button onClick={logOutHandler}>Logout</button>
         </div>
 

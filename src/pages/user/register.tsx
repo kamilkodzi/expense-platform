@@ -26,15 +26,20 @@ const Register = () => {
   const registerUser = async () => {
     const dataToBeSent = JSON.stringify(registerData);
 
-    let resuls = await fetch("/api/user/register", {
-      method: "POST",
-      mode: "cors",
-      body: dataToBeSent,
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-    });
+    let resuls = await fetch(
+      "https://socialist-keener-62500.herokuapp.com/user/register",
+      {
+        method: "POST",
+        mode: "cors",
+        body: dataToBeSent,
+        credentials: "include",
+        headers: {
+          Accept: "application/json",
+          "Access-Control-Allow-Origin": "*",
+          "Content-Type": "application/json",
+        },
+      }
+    );
     resuls = await resuls.json();
     if (resuls) navigate("/app/login");
   };
