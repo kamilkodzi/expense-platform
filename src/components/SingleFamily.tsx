@@ -22,7 +22,7 @@ const SingleFamily = (props) => {
     );
     const resultdata = await results.json();
     if (results.ok) {
-      navigate("/app/myprofile");
+      navigate("/app/myfamily");
     } else {
       alert(resultdata.message);
     }

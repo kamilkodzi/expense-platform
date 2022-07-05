@@ -58,7 +58,7 @@ const FindFamily = () => {
     const resultData = await results.json();
     if (results.ok) {
       setNewAdded((prevState) => prevState + 1);
-      navigate("/app/myprofile");
+      navigate("/app/myfamily");
     } else {
       alert(resultData.message);
     }
