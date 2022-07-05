@@ -10,6 +10,10 @@ const FindFamily = () => {
   const [newAdded, setNewAdded] = useState(0);
   useEffect(() => {
     const fetchData = async () => {
+      const curUser = await getCurrentUser();
+      if (!curUser?.id) {
+        return null;
+      }
       fetch("https://socialist-keener-62500.herokuapp.com/families", {
         method: "GET",
         mode: "cors",
@@ -64,7 +68,7 @@ const FindFamily = () => {
     <Layout>
       <form style={{ padding: " 90px 10px 10px 10px" }}>
         <label>
-          Family name:&nbsp;
+          Create new:&nbsp;
           <input
             value={newFamilyName}
             onChange={changeHandler}

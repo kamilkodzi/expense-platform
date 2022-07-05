@@ -56,7 +56,7 @@ body {
 .nav-wrapper li a {
   text-decoration: none;
   letter-spacing: 0.05em;
-  color: rgb(169, 91, 243);
+  color: rgb(246, 225, 248);
 }
 .nav-wrapper li a:after {
   content: "|";

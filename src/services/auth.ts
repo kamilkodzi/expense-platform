@@ -1,6 +1,8 @@
 const isBrowser = typeof window !== `undefined`;
 export interface IUser {
+  _id: any;
   fetch;
+  id: string;
   username: string;
 }
 
