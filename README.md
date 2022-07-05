@@ -1,8 +1,10 @@
 ## 🚀 Quick start
 
-1.  **To be delivered soon**
+1.  **Visit working site on**
+    https://family-expense.netlify.app/
 
-Here will be instruction how to run application localy
-1. npm install
-2. npm start 
+2.  **Instructions for local run**
+    Here will be instruction how to run application localy
 
+npm install
+npm start
