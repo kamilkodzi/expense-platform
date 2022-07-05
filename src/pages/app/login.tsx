@@ -66,6 +66,7 @@ const Register = () => {
           <RegisterInputs>
             <label>Username</label>
             <input
+              autoComplete="off"
               type="text"
               name="username"
               value={registerData.username}

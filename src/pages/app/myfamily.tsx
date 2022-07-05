@@ -200,6 +200,7 @@ const Myfamily = () => {
           <form>
             <div style={{ display: "flex", marginBottom: "20px" }}>
               <input
+                autoComplete="off"
                 onChange={valueChange}
                 style={{ width: "25%", margin: "5px" }}
                 name="value"
@@ -207,6 +208,7 @@ const Myfamily = () => {
                 placeholder="value $"
               ></input>
               <input
+                autoComplete="off"
                 onChange={nameChange}
                 style={{ width: "35%", margin: "5px" }}
                 name="name"

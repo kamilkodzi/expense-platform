@@ -87,17 +87,20 @@ const MyProfile = () => {
 
     if (data?.family?._id) {
       const id = data?.family?._id;
-      const results = await fetch(`https://socialist-keener-62500.herokuapp.com/families/${id}/quit`, {
-        method: "PATCH",
-        mode: "cors",
-        body: JSON.stringify({ id: currentUser.id }),
-        credentials: "include",
-        headers: {
-          Accept: "application/json",
-          "Access-Control-Allow-Origin": "*",
-          "Content-Type": "application/json",
-        },
-      });
+      const results = await fetch(
+        `https://socialist-keener-62500.herokuapp.com/families/${id}/quit`,
+        {
+          method: "PATCH",
+          mode: "cors",
+          body: JSON.stringify({ id: currentUser.id }),
+          credentials: "include",
+          headers: {
+            Accept: "application/json",
+            "Access-Control-Allow-Origin": "*",
+            "Content-Type": "application/json",
+          },
+        }
+      );
       const resultdata = await results.json();
       if (results.ok) {
         setData((prevState) => ({ ...prevState, family: null }));
@@ -113,17 +116,20 @@ const MyProfile = () => {
   };
   const setBudget = async (e) => {
     e.preventDefault();
-    const results = await fetch(`https://socialist-keener-62500.herokuapp.com/families/${data.family._id}/budget`, {
-      method: "PATCH",
-      mode: "cors",
-      body: JSON.stringify(newBudget),
-      credentials: "include",
-      headers: {
-        Accept: "application/json",
-        "Access-Control-Allow-Origin": "*",
-        "Content-Type": "application/json",
-      },
-    });
+    const results = await fetch(
+      `https://socialist-keener-62500.herokuapp.com/families/${data.family._id}/budget`,
+      {
+        method: "PATCH",
+        mode: "cors",
+        body: JSON.stringify(newBudget),
+        credentials: "include",
+        headers: {
+          Accept: "application/json",
+          "Access-Control-Allow-Origin": "*",
+          "Content-Type": "application/json",
+        },
+      }
+    );
     const resultdata = await results.json();
     if (results.ok) {
       setNewBudget((prev) => null);
@@ -171,6 +177,7 @@ const MyProfile = () => {
             <br></br>
             <br></br>
             <input
+              autoComplete="off"
               onChange={changeHandler}
               type="number"
               placeholder="value $"
