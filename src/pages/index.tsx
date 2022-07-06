@@ -1,8 +1,16 @@
-import { Link } from "gatsby";
+import { Link, navigate } from "gatsby";
 import React from "react";
 import Layout from "../components/Layout";
+import { getCurrentUser } from "../services/auth";
 
 const index = () => {
+  const isLoggedIn = async () => {
+    const logCheck = await getCurrentUser();
+    if (logCheck?.username) {
+      navigate("/app/myprofile");
+    }
+    isLoggedIn();
+  };
   return (
     <Layout>
       <div style={{ padding: " 90px 10px 10px 10px" }}>
