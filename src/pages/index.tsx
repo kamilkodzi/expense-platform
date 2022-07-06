@@ -1,15 +1,20 @@
 import { Link, navigate } from "gatsby";
-import React from "react";
+import React, { useEffect } from "react";
 import Layout from "../components/Layout";
 import { getCurrentUser } from "../services/auth";
 
 const index = () => {
+  useEffect(() => {
+    isLoggedIn();
+  }, []);
   const isLoggedIn = async () => {
     const logCheck = await getCurrentUser();
     if (logCheck?.username) {
+      console.log("juz zalogowany");
       navigate("/app/myprofile");
+    } else {
+      console.log("jeszcze nie zalogowany zalogowany");
     }
-    isLoggedIn();
   };
   return (
     <Layout>

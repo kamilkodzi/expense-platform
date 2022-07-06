@@ -17,7 +17,11 @@ export const setUser = (obj: any) =>
 export const isLoggedIn = async () => {
   if (!isBrowser) return false;
   const isLoggedIn = await getCurrentUser();
-  if (isLoggedIn?.username && !isLoggedIn.id.includes("{")) {
+  if (
+    isLoggedIn?.username &&
+    !isLoggedIn?.id?.includes("{") &&
+    isLoggedIn?.id
+  ) {
     return true;
   } else {
     await setUser({});
