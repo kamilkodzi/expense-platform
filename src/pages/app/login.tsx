@@ -39,7 +39,7 @@ const Register = () => {
       }
     );
     const resulss = await resuls.json();
-    if (resulss) {
+    if (resuls.ok) {
       setUser({ username: registerData?.username, id: resulss?.message });
       navigate("/app/myprofile");
     }
